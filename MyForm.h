@@ -1,4 +1,9 @@
 #pragma once
+#include <string>
+#include <vector>
+#include "fstream"
+#include <algorithm>
+#include <msclr\marshal_cppstd.h>
 
 namespace BasicSPEncryption {
 
@@ -78,7 +83,7 @@ namespace BasicSPEncryption {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(402, 20);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"Исходные данные (число от 0 до 4 294 967 295)";
+			this->label1->Text = L"Исходные данные (число от 0 до 65 535)";
 			// 
 			// textBox1
 			// 
@@ -99,7 +104,7 @@ namespace BasicSPEncryption {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(372, 20);
 			this->label2->TabIndex = 2;
-			this->label2->Text = L"Введите ключ (число от 0 до 4 294 967 295)";
+			this->label2->Text = L"Введите ключ (число от 0 до 65 535)";
 			// 
 			// textBox2
 			// 
@@ -194,7 +199,34 @@ namespace BasicSPEncryption {
 #pragma endregion
 		
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Зашифровать 
+		this->errorInput->ResetText();
+		if (this->textBox1->TextLength <= 0) {
+			this->errorInput->Text = "Введите входные данные";
+			return;
+		}
 
+		this->errorKey->ResetText();
+		if (this->textBox2->TextLength <= 0) {
+			this->errorKey->Text = "Введите ключ";
+			return;
+		}
+
+		try {
+			unsigned short int input = UInt16::Parse(this->textBox1->Text);
+		}
+		catch (...) {
+			this->errorInput->Text = "Число слишком маленькое или слишком большое";
+			return;
+		}
+
+		try {
+			unsigned short int key = UInt16::Parse(this->textBox2->Text);
+		}
+		catch (...) {
+			this->errorKey->Text = "Число слишком маленькое или слишком большое";
+			return;
+		}
+		
 	}
 
 	System::Void TextValidate(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) { // Валидация
