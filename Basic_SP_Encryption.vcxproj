@@ -118,12 +118,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KeyGen.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="P_Block.cpp" />
+    <ClCompile Include="Section.cpp" />
+    <ClCompile Include="Separator.cpp" />
+    <ClCompile Include="S_Block.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyGen.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="P_Block.h" />
+    <ClInclude Include="Section.h" />
+    <ClInclude Include="Separator.h" />
+    <ClInclude Include="S_Block.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">

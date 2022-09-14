@@ -18,9 +18,9 @@ namespace BasicSPEncryption {
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
+			
+			this->errorInput->Text = "";
+			this->errorKey->Text = "";
 		}
 
 	protected:
@@ -88,6 +88,7 @@ namespace BasicSPEncryption {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(214, 27);
 			this->textBox1->TabIndex = 1;
+			this->textBox1->Validating += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::TextValidate);
 			// 
 			// label2
 			// 
@@ -108,6 +109,7 @@ namespace BasicSPEncryption {
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(214, 27);
 			this->textBox2->TabIndex = 3;
+			this->textBox2->Validating += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::TextValidate);
 			// 
 			// button1
 			// 
@@ -119,6 +121,7 @@ namespace BasicSPEncryption {
 			this->button1->TabIndex = 4;
 			this->button1->Text = L"Зашифровать";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
 			// button2
 			// 
@@ -189,6 +192,14 @@ namespace BasicSPEncryption {
 
 		}
 #pragma endregion
+		
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Зашифровать
 
-	};
+	}
+
+	System::Void TextValidate(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) { // Валидация
+		TextBox^ textbox = safe_cast<TextBox^>(sender);
+		textbox->Text = System::Text::RegularExpressions::Regex::Replace(textbox->Text, "[^1-9]", "");
+	}
+};
 }
