@@ -1,0 +1,5 @@
+D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.AssemblyReference.cache
+D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.SuggestedBindingRedirects.cache
+D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\BasicSPEncryption.MyForm.resources
+D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.GenerateResource.cache
+D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.exe
