@@ -15,8 +15,10 @@ private:
 	bitset<16>* word;
 	int round;
 	int roundCount;
-	vector<S_Block*> S_Blocks[4];
+	S_Block* S_Block;
 	P_Block* P_Block;
+
+	void Substitution();
 
 public:
 	Section();

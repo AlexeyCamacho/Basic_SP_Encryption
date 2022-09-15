@@ -1,13 +1,30 @@
 #include "Section.h"
 
+void Section::Substitution()
+{
+	string s_block;
+	string res;
+
+	for (int i = 0; i < 4; i++) {
+
+		s_block = this->word->to_string().substr(4 * i, 4);
+		
+		int swapRes = this->S_Block->Substitution(bitset<4>(s_block));
+
+		res += bitset<4>(swapRes).to_string();
+	}
+}
+
 Section::Section()
 {
 	this->roundCount = 4;
 	this->round = 0;
+	this->S_Block = new class S_Block();
 }
 
 Section::~Section()
 {
+	
 }
 
 void Section::SetInput(string input)
@@ -31,7 +48,7 @@ void Section::Encrypt(KeyGen* keyGen)
 		bitset<16> key(keyStr);
 
 		this->XOR(key);
-
+		this->Substitution();
 
 	}
 
