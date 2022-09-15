@@ -3,7 +3,11 @@
 #include <vector>
 #include "fstream"
 #include <algorithm>
+#include <bitset>
 #include <msclr\marshal_cppstd.h>
+#include "Separator.h"
+#include "KeyGen.h"
+#include "Section.h"
 
 namespace BasicSPEncryption {
 
@@ -13,6 +17,10 @@ namespace BasicSPEncryption {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace std;
+
+	Separator* separator = new Separator();
+	KeyGen* keyGen = new KeyGen();
 
 	/// <summary>
 	/// Сводка для MyForm
@@ -211,6 +219,7 @@ namespace BasicSPEncryption {
 			return;
 		}
 
+		// Временно. Далее перенести код проверки в сепаратор
 		try {
 			unsigned short int input = UInt16::Parse(this->textBox1->Text);
 		}
@@ -225,6 +234,16 @@ namespace BasicSPEncryption {
 		catch (...) {
 			this->errorKey->Text = "Число слишком маленькое или слишком большое";
 			return;
+		}
+
+		separator->SetInput(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		keyGen->SetKey(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		
+		for (int i = 0; i < separator->GetCountWords(); i++) {
+			Section* section = new Section();
+
+			section->SetInput(separator->GetNextWord());
+			section->Encrypt(keyGen);
 		}
 		
 	}
