@@ -13,9 +13,11 @@ void KeyGen::SetKey(string input)
 string KeyGen::Generate(int round)
 {
 	string word;
-	for (int i = 0; i < this->key.size(); i++) {
+	/*for (int i = 0; i < this->key.size(); i++) {
 		word += bitset<8>(this->key[i]).to_string();
-	}
+	}*/
+
+	word = bitset<16>(stoi(this->key)).to_string();
 	
 	return word;
 }

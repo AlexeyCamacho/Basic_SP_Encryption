@@ -11,6 +11,6 @@ private:
 public:
 	S_Block();
 
-	int Substitution(bitset<4> input);
+	unsigned long Substitution(bitset<4> input);
 };
 

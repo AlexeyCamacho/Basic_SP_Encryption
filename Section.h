@@ -19,12 +19,14 @@ private:
 	P_Block* P_Block;
 
 	void Substitution();
+	void Permutation();
 
 public:
 	Section();
 	~Section();
 
 	void SetInput(string input);
+	void SetInput(unsigned short int input);
 	bitset<16> GetOutput();
 	void Encrypt(KeyGen* keyGen);
 	void Decrypt(KeyGen* keyGen);

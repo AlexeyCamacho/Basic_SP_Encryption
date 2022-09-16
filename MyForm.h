@@ -242,15 +242,18 @@ namespace BasicSPEncryption {
 		for (int i = 0; i < separator->GetCountWords(); i++) {
 			Section* section = new Section();
 
-			section->SetInput(separator->GetNextWord());
+			section->SetInput(stoi(separator->GetNextWord()));
 			section->Encrypt(keyGen);
+			unsigned long res = section->GetOutput().to_ulong();
+
+			this->textBox3->Text += res + "\r\n";
 		}
 		
 	}
 
 	System::Void TextValidate(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) { // Валидация
 		TextBox^ textbox = safe_cast<TextBox^>(sender);
-		textbox->Text = System::Text::RegularExpressions::Regex::Replace(textbox->Text, "[^1-9]", "");
+		textbox->Text = System::Text::RegularExpressions::Regex::Replace(textbox->Text, "[^0-9]", "");
 	}
 };
 }

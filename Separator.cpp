@@ -13,6 +13,7 @@ void Separator::SetInput(string input)
 	this->input = input;
 }
 
+
 string Separator::GetNextWord()
 {
 	return this->input;
