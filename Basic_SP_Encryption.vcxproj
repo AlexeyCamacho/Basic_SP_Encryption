@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="KeyGen.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="P_Block.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="S_Block.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Drawer.h" />
     <ClInclude Include="KeyGen.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>

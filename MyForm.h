@@ -22,6 +22,7 @@ namespace BasicSPEncryption {
 	Separator* separator = new Separator();
 	KeyGen* keyGen = new KeyGen();
 
+
 	/// <summary>
 	/// Сводка для MyForm
 	/// </summary>
@@ -34,6 +35,7 @@ namespace BasicSPEncryption {
 			
 			this->errorInput->Text = "";
 			this->errorKey->Text = "";
+			this->label4->Text = "";
 		}
 
 	protected:
@@ -53,9 +55,12 @@ namespace BasicSPEncryption {
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::TextBox^ textBox3;
+
 	private: System::Windows::Forms::Label^ errorInput;
 	private: System::Windows::Forms::Label^ errorKey;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	protected:
 
 	private:
@@ -77,9 +82,12 @@ namespace BasicSPEncryption {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->errorInput = (gcnew System::Windows::Forms::Label());
 			this->errorKey = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -89,7 +97,7 @@ namespace BasicSPEncryption {
 				static_cast<System::Byte>(204)));
 			this->label1->Location = System::Drawing::Point(16, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(402, 20);
+			this->label1->Size = System::Drawing::Size(347, 20);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Исходные данные (число от 0 до 65 535)";
 			// 
@@ -110,7 +118,7 @@ namespace BasicSPEncryption {
 				static_cast<System::Byte>(204)));
 			this->label2->Location = System::Drawing::Point(16, 102);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(372, 20);
+			this->label2->Size = System::Drawing::Size(317, 20);
 			this->label2->TabIndex = 2;
 			this->label2->Text = L"Введите ключ (число от 0 до 65 535)";
 			// 
@@ -147,19 +155,6 @@ namespace BasicSPEncryption {
 			this->button2->Text = L"Расшифровать";
 			this->button2->UseVisualStyleBackColor = true;
 			// 
-			// textBox3
-			// 
-			this->textBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox3->Location = System::Drawing::Point(546, 12);
-			this->textBox3->Multiline = true;
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox3->Size = System::Drawing::Size(550, 410);
-			this->textBox3->TabIndex = 6;
-			// 
 			// errorInput
 			// 
 			this->errorInput->AutoSize = true;
@@ -184,14 +179,49 @@ namespace BasicSPEncryption {
 			this->errorKey->TabIndex = 8;
 			this->errorKey->Text = L"Валидация";
 			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label3->Location = System::Drawing::Point(16, 298);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(102, 20);
+			this->label3->TabIndex = 9;
+			this->label3->Text = L"Результат:";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label4->Location = System::Drawing::Point(124, 298);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(96, 20);
+			this->label4->TabIndex = 10;
+			this->label4->Text = L"результат";
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox1->Location = System::Drawing::Point(443, 9);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(731, 617);
+			this->pictureBox1->TabIndex = 11;
+			this->pictureBox1->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1108, 468);
+			this->ClientSize = System::Drawing::Size(1191, 640);
+			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->label4);
+			this->Controls->Add(this->label3);
 			this->Controls->Add(this->errorKey);
 			this->Controls->Add(this->errorInput);
-			this->Controls->Add(this->textBox3);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox2);
@@ -200,6 +230,7 @@ namespace BasicSPEncryption {
 			this->Controls->Add(this->label1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -238,15 +269,19 @@ namespace BasicSPEncryption {
 
 		separator->SetInput(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
 		keyGen->SetKey(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		
+
+		Graphics^ g = pictureBox1->CreateGraphics();
+		g->Clear(Color::White);
+
 		for (int i = 0; i < separator->GetCountWords(); i++) {
 			Section* section = new Section();
 
 			section->SetInput(stoi(separator->GetNextWord()));
-			section->Encrypt(keyGen);
+			section->Encrypt(keyGen, g);
 			unsigned long res = section->GetOutput().to_ulong();
 
-			this->textBox3->Text += res + "\r\n";
+
+			this->label4->Text = gcnew System::String(to_string( res ).c_str());
 		}
 		
 	}
