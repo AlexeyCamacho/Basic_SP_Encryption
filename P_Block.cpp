@@ -13,3 +13,8 @@ unsigned long P_Block::Permutation(bitset<16> input)
 
 	return res.to_ulong();
 }
+
+vector<int> P_Block::GetPermutation()
+{
+	return this->permutation;
+}

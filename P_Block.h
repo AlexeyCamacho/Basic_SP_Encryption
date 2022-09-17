@@ -12,5 +12,6 @@ public:
 	P_Block();
 
 	unsigned long Permutation(bitset<16> input);
+	vector<int> GetPermutation();
 };
 
