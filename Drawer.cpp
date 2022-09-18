@@ -8,7 +8,7 @@ void Drawer::DrowReg16(Graphics^ g, int x, int y, int w, int h)
 	int shift = 0;
 
 	for (int i = 0; i < 16; i++) {
-		g->DrawRectangle(blackPen, x * i + shift, y, w, h);
+		g->DrawRectangle(blackPen, x * i + shift + i, y, w, h);
 		if (i % 4 == 3) {
 			shift += 5;
 		}
@@ -25,12 +25,22 @@ void Drawer::DrowReg16Color(Graphics^ g, int x, int y, int w, int h, vector<int>
 	int shift = 0;
 
 	for (int i = 0; i < 16; i++) {
-		switch (i % 4)
+		switch (colors[i] / 4)
 		{
 		case 0: g->DrawRectangle(redPen, x * i + shift + i, y, w, h); break;
 		case 1: g->DrawRectangle(bluePen, x * i + shift + i, y, w, h); break;
 		case 2: g->DrawRectangle(greenPen, x * i + shift + i, y, w, h); break;
 		case 3: g->DrawRectangle(yelloyPen, x * i + shift + i, y, w, h); break;
+		default:
+			break;
+		}
+
+		switch (colors[i] / 4)
+		{
+		case 0: this->DrowCustomReg(g, redPen, colors[i], x * i + shift + i, y); break;
+		case 1: this->DrowCustomReg(g, bluePen, colors[i], x * i + shift + i, y); break;
+		case 2: this->DrowCustomReg(g, greenPen, colors[i], x * i + shift + i, y); break;
+		case 3: this->DrowCustomReg(g, yelloyPen, colors[i], x * i + shift + i, y); break;
 		default:
 			break;
 		}
@@ -51,7 +61,7 @@ void Drawer::DrowBits16(Graphics^ g, string input, int x, int y)
 	for (int i = 0; i < 16; i++) {
 		std::string charStr{ input[i] };
 		System::String^ test = gcnew System::String(charStr.c_str());
-		g->DrawString(test, printFont, drawBrush, x * i + shift, y + 10);
+		g->DrawString(test, printFont, drawBrush, x * i + shift + i, y + 10);
 
 		if (i % 4 == 3) {
 			shift += 5;
@@ -65,8 +75,8 @@ void Drawer::DrowXOR(Graphics^ g, int x, int y)
 	Font^ printFont = gcnew System::Drawing::Font("Arial", 14);
 	SolidBrush^ drawBrush = gcnew SolidBrush(Color::Red);
 
-	g->DrawEllipse(redPen, x, y - 17, 15, 15);
-	g->DrawString("+", printFont, drawBrush, x - 1, y - 20);
+	g->DrawEllipse(redPen, x + 8, y - 17, 15, 15);
+	g->DrawString("+", printFont, drawBrush, x + 7, y - 20);
 }
 
 void Drawer::DrowS_Block(Graphics^ g, int x, int y)
@@ -75,6 +85,20 @@ void Drawer::DrowS_Block(Graphics^ g, int x, int y)
 	blackPen->EndCap = System::Drawing::Drawing2D::LineCap::ArrowAnchor;
 
 	for (int i = 0; i < 4; i++) {
-		g->DrawLine(blackPen, Point(x + 125 * i, y - 18), Point(x + 125 * i, y - 2));
+		g->DrawLine(blackPen, Point(x + 129 * i, y - 18), Point(x + 129 * i, y - 2));
+	}
+}
+
+void Drawer::DrowCustomReg(Graphics^ g, Pen^ pen, int i, int x, int y)
+{
+
+	switch (i % 4)
+	{
+	case 0: g->DrawRectangle(pen, x, y, 5, 5); break;
+	case 1: g->DrawRectangle(pen, x, y + 30, 5, 5); break;
+	case 2: g->DrawRectangle(pen, x + 25, y + 30, 5, 5); break;
+	case 3: g->DrawRectangle(pen, x + 25, y, 5, 5); break;
+	default:
+		break;
 	}
 }

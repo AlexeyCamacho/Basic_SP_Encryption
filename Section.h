@@ -36,7 +36,7 @@ public:
 	void Decrypt(KeyGen* keyGen);
 	void XOR(bitset<16> key);
 	void YStep();
-	void DrowBitReg(Graphics^ g);
+	void DrowBitReg(Graphics^ g, vector<int> colors);
 
 
 };

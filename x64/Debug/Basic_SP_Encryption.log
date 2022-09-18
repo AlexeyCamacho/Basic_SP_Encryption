@@ -1,7 +1,7 @@
 ﻿  Drawer.cpp
-D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(54,62): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(54,51): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(69,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(69,45): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(64,66): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(64,59): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(79,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\Drawer.cpp(79,45): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
   Drawer.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Basic_SP_Encryption.vcxproj -> D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.exe

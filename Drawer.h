@@ -16,5 +16,6 @@ public:
 	void DrowBits16(Graphics^ g, string input, int x, int y);
 	void DrowXOR(Graphics^ g, int x, int y);
 	void DrowS_Block(Graphics^ g, int x, int y);
+	void DrowCustomReg(Graphics^ g, Pen^ pen, int i, int x, int y);
 };
 

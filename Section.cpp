@@ -61,7 +61,9 @@ bitset<16> Section::GetOutput()
 
 void Section::Encrypt(KeyGen* keyGen, Graphics^ g)
 {
-	this->DrowBitReg(g);
+	vector <int> NoColor;
+	vector <int> orderColor {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+	this->DrowBitReg(g, NoColor);
 
 	for (int i = 0; i < this->roundCount; i++) {
 		string keyStr = keyGen->Generate(this->round);
@@ -69,15 +71,15 @@ void Section::Encrypt(KeyGen* keyGen, Graphics^ g)
 
 		this->Drawer->DrowXOR(g, 240, this->y);
 		this->XOR(key);
-		this->DrowBitReg(g);
+		this->DrowBitReg(g, NoColor);
 
-		this->Drawer->DrowS_Block(g, 60, this->y);
+		this->Drawer->DrowS_Block(g, 62, this->y);
 		this->Substitution();
-		this->DrowBitReg(g);
+		this->DrowBitReg(g, orderColor);
 
 		if (i != 3) {
 			this->Permutation();
-			this->DrowBitReg(g);
+			this->DrowBitReg(g, this->P_Block->GetPermutation());
 		}
 		Pen^ p = gcnew Pen(Color::Blue, 1.0f);
 	}
@@ -87,9 +89,7 @@ void Section::Encrypt(KeyGen* keyGen, Graphics^ g)
 
 	this->Drawer->DrowXOR(g, 240, this->y);
 	this->XOR(key);
-	this->DrowBitReg(g);
-
-	this->Drawer->DrowReg16Color(g, 30, this->y, 30, 35, this->P_Block->GetPermutation());
+	this->DrowBitReg(g, NoColor);
 
 }
 
@@ -107,9 +107,14 @@ void Section::YStep()
 	this->y += 55;
 }
 
-void Section::DrowBitReg(Graphics^ g)
+void Section::DrowBitReg(Graphics^ g, vector<int> colors)
 {
-	this->Drawer->DrowReg16(g, 30, this->y, 30, 35);
+	if (colors.size() == 16) {
+		this->Drawer->DrowReg16Color(g, 30, this->y, 30, 35, colors);
+	}
+	else {
+		this->Drawer->DrowReg16(g, 30, this->y, 30, 35);
+	}
 	this->Drawer->DrowBits16(g, this->word->to_string(), 30, this->y);
 	this->YStep();
 }
