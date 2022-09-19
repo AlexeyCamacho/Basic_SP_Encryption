@@ -155,6 +155,7 @@ namespace BasicSPEncryption {
 			this->button2->TabIndex = 5;
 			this->button2->Text = L"Расшифровать";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
 			// errorInput
 			// 
@@ -241,6 +242,52 @@ namespace BasicSPEncryption {
 #pragma endregion
 		
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Зашифровать 
+		this->validate();
+
+		separator->SetInput(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		keyGen->SetKey(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+
+		Graphics^ g = pictureBox1->CreateGraphics();
+		g->Clear(Color::Silver);
+
+		for (int i = 0; i < separator->GetCountWords(); i++) {
+			Section* section = new Section();
+
+			section->SetInput(stoi(separator->GetNextWord()));
+			section->Encrypt(keyGen, g);
+			unsigned long res = section->GetOutput().to_ulong();
+
+
+			this->label4->Text = gcnew System::String(to_string( res ).c_str());
+		}
+		
+	}
+
+	System::Void TextValidate(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) { // Валидация
+		TextBox^ textbox = safe_cast<TextBox^>(sender);
+		textbox->Text = System::Text::RegularExpressions::Regex::Replace(textbox->Text, "[^0-9]", "");
+	}
+
+	System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) { // Расшифровать
+		this->validate();
+		separator->SetInput(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		keyGen->SetKey(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+
+		Graphics^ g = pictureBox1->CreateGraphics();
+		g->Clear(Color::Silver);
+
+		for (int i = 0; i < separator->GetCountWords(); i++) {
+			Section* section = new Section();
+
+			section->SetInput(stoi(separator->GetNextWord()));
+			section->Decrypt(keyGen, g);
+			unsigned long res = section->GetOutput().to_ulong();
+
+			this->label4->Text = gcnew System::String(to_string(res).c_str());
+		}
+	}
+
+	void validate() {
 		this->errorInput->ResetText();
 		if (this->textBox1->TextLength <= 0) {
 			this->errorInput->Text = "Введите входные данные";
@@ -269,29 +316,7 @@ namespace BasicSPEncryption {
 			this->errorKey->Text = "Число слишком маленькое или слишком большое";
 			return;
 		}
-
-		separator->SetInput(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		keyGen->SetKey(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-
-		Graphics^ g = pictureBox1->CreateGraphics();
-		g->Clear(Color::Silver);
-
-		for (int i = 0; i < separator->GetCountWords(); i++) {
-			Section* section = new Section();
-
-			section->SetInput(stoi(separator->GetNextWord()));
-			section->Encrypt(keyGen, g);
-			unsigned long res = section->GetOutput().to_ulong();
-
-
-			this->label4->Text = gcnew System::String(to_string( res ).c_str());
-		}
-		
 	}
 
-	System::Void TextValidate(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) { // Валидация
-		TextBox^ textbox = safe_cast<TextBox^>(sender);
-		textbox->Text = System::Text::RegularExpressions::Regex::Replace(textbox->Text, "[^0-9]", "");
-	}
 };
 }

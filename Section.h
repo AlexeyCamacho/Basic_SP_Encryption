@@ -22,8 +22,8 @@ private:
 	Drawer* Drawer;
 	int y;
 
-	void Substitution();
-	void Permutation();
+	void Substitution(bool reverce);
+	void Permutation(bool reverce);
 
 public:
 	Section();
@@ -33,7 +33,7 @@ public:
 	void SetInput(unsigned short int input);
 	bitset<16> GetOutput();
 	void Encrypt(KeyGen* keyGen, Graphics^ g);
-	void Decrypt(KeyGen* keyGen);
+	void Decrypt(KeyGen* keyGen, Graphics^ g);
 	void XOR(bitset<16> key);
 	void YStep();
 	void DrowBitReg(Graphics^ g, vector<int> colors);

@@ -1,6 +1,6 @@
 #include "Section.h"
 
-void Section::Substitution()
+void Section::Substitution(bool reverce)
 {
 	string s_block;
 	string res;
@@ -8,8 +8,14 @@ void Section::Substitution()
 	for (int i = 0; i < 4; i++) {
 
 		s_block = this->word->to_string().substr(4 * i, 4);
-		
-		unsigned long swapRes = this->S_Block->Substitution(bitset<4>(s_block));
+		unsigned long swapRes;
+
+		if (reverce) {
+			swapRes = this->S_Block->ReverceSubstitution(bitset<4>(s_block));
+		}
+		else {
+			swapRes = this->S_Block->Substitution(bitset<4>(s_block));
+		}
 
 		res += bitset<4>(swapRes).to_string();
 
@@ -18,9 +24,15 @@ void Section::Substitution()
 	this->word = new bitset<16>(res);
 }
 
-void Section::Permutation()
+void Section::Permutation(bool reverce)
 {
-	unsigned long res = this->P_Block->Permutation(bitset<16> (this->word->to_ulong()));
+	unsigned long res;
+	if (reverce) {
+		res = this->P_Block->RevercePermutation(bitset<16>(this->word->to_ulong()));
+	}
+	else {
+		 res = this->P_Block->Permutation(bitset<16>(this->word->to_ulong()));
+	}
 
 	this->word = new bitset<16>(res);
 }
@@ -59,7 +71,7 @@ bitset<16> Section::GetOutput()
 	return bitset<16> (this->word->to_ulong());
 }
 
-void Section::Encrypt(KeyGen* keyGen, Graphics^ g)
+void Section::Encrypt(KeyGen* keyGen, Graphics^ g) // Шифрование
 {
 	vector <int> NoColor;
 	vector <int> orderColor {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
@@ -80,12 +92,12 @@ void Section::Encrypt(KeyGen* keyGen, Graphics^ g)
 
 		this->Drawer->DrowS_Block(g, 62, this->y);
 		this->Drawer->DrowSubstitution(g, 550, this->y - 50, this->word->to_string());
-		this->Substitution();
+		this->Substitution(false);
 		this->DrowBitReg(g, orderColor);
 		this->Drawer->DrowSubstitution(g, 550, this->y - 50, this->word->to_string());
 
 		if (i != 3) {
-			this->Permutation();
+			this->Permutation(false);
 			this->DrowBitReg(g, this->P_Block->GetPermutation());
 		}
 		Pen^ p = gcnew Pen(Color::Blue, 1.0f);
@@ -98,10 +110,6 @@ void Section::Encrypt(KeyGen* keyGen, Graphics^ g)
 	this->XOR(key);
 	this->DrowBitReg(g, NoColor);
 
-}
-
-void Section::Decrypt(KeyGen* keyGen)
-{
 }
 
 void Section::XOR(bitset<16> key)
@@ -124,4 +132,51 @@ void Section::DrowBitReg(Graphics^ g, vector<int> colors)
 	}
 	this->Drawer->DrowBits16(g, this->word->to_string(), 0, this->y);
 	this->YStep();
+}
+
+void Section::Decrypt(KeyGen* keyGen, Graphics^ g)
+{
+	vector <int> NoColor;
+	vector <int> orderColor{ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+
+	string keyStr = keyGen->Generate(this->round);
+	bitset<16> key(keyStr);
+
+	this->Drawer->DrowReg16(g, 550, this->y, 30, 35); // Ключ
+	this->Drawer->DrowBits16(g, keyStr, 550, this->y); // Ключ
+
+	this->DrowBitReg(g, NoColor);
+
+	this->Drawer->DrowXOR(g, 240, this->y);
+	this->XOR(key);
+	this->DrowBitReg(g, NoColor);
+
+
+	for (int i = 0; i < this->roundCount; i++) {
+		string keyStr = keyGen->Generate(this->round);
+		bitset<16> key(keyStr);
+
+		if (i != 0) {
+			this->DrowBitReg(g, orderColor);
+			this->Permutation(true);
+		}
+
+
+		this->Drawer->DrowS_Block(g, 62, this->y);
+		this->Drawer->DrowSubstitution(g, 550, this->y - 50, this->word->to_string());
+		this->Substitution(true);
+		this->DrowBitReg(g, NoColor);
+		this->Drawer->DrowSubstitution(g, 550, this->y - 50, this->word->to_string());
+
+		this->Drawer->DrowXOR(g, 240, this->y);
+		this->XOR(key);
+
+		if (i != 3) {
+			this->DrowBitReg(g, this->P_Block->GetPermutation());
+		}
+		else {
+			this->DrowBitReg(g, NoColor);
+		}
+	}
+
 }
