@@ -12,5 +12,6 @@ public:
 	S_Block();
 
 	unsigned long Substitution(bitset<4> input);
+	vector<int> GetSubstitution();
 };
 

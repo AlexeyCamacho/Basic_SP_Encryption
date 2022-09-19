@@ -3,3 +3,8 @@ D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.Sugg
 D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\BasicSPEncryption.MyForm.resources
 D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.GenerateResource.cache
 D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.exe
+C:\Users\prog4\development\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.AssemblyReference.cache
+C:\Users\prog4\development\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\prog4\development\Basic_SP_Encryption\x64\Debug\BasicSPEncryption.MyForm.resources
+C:\Users\prog4\development\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.vcxproj.GenerateResource.cache
+C:\Users\prog4\development\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.exe

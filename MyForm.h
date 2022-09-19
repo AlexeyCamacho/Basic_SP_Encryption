@@ -274,7 +274,7 @@ namespace BasicSPEncryption {
 		keyGen->SetKey(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
 
 		Graphics^ g = pictureBox1->CreateGraphics();
-		g->Clear(Color::White);
+		g->Clear(Color::Silver);
 
 		for (int i = 0; i < separator->GetCountWords(); i++) {
 			Section* section = new Section();
