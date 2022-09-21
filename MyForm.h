@@ -36,6 +36,7 @@ namespace BasicSPEncryption {
 			this->errorInput->Text = "";
 			this->errorKey->Text = "";
 			this->label4->Text = "";
+			this->label5->Visible = false;
 		}
 
 	protected:
@@ -61,13 +62,17 @@ namespace BasicSPEncryption {
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::IO::Ports::SerialPort^ serialPort1;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Timer^ timer1;
+	private: System::ComponentModel::IContainer^ components;
 	protected:
 
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -76,6 +81,7 @@ namespace BasicSPEncryption {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -88,6 +94,9 @@ namespace BasicSPEncryption {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->serialPort1 = (gcnew System::IO::Ports::SerialPort(this->components));
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -214,11 +223,34 @@ namespace BasicSPEncryption {
 			this->pictureBox1->TabIndex = 11;
 			this->pictureBox1->TabStop = false;
 			// 
+			// serialPort1
+			// 
+			this->serialPort1->PortName = L"COM3";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label5->ForeColor = System::Drawing::Color::ForestGreen;
+			this->label5->Location = System::Drawing::Point(16, 334);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(73, 20);
+			this->label5->TabIndex = 12;
+			this->label5->Text = L"Arduino";
+			// 
+			// timer1
+			// 
+			this->timer1->Enabled = true;
+			this->timer1->Interval = 250;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1191, 640);
+			this->Controls->Add(this->label5);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
@@ -259,6 +291,12 @@ namespace BasicSPEncryption {
 
 
 			this->label4->Text = gcnew System::String(to_string( res ).c_str());
+
+			cli::array<Byte>^ buffer = gcnew cli::array<Byte> { res >> 8, res };
+			
+			if (this->serialPort1->IsOpen) {
+				this->serialPort1->Write(buffer, 0, 2);
+			}
 		}
 		
 	}
@@ -284,6 +322,12 @@ namespace BasicSPEncryption {
 			unsigned long res = section->GetOutput().to_ulong();
 
 			this->label4->Text = gcnew System::String(to_string(res).c_str());
+
+			cli::array<Byte>^ buffer = gcnew cli::array<Byte> { res >> 8, res };
+
+			if (this->serialPort1->IsOpen) {
+				this->serialPort1->Write(buffer, 0, 2);
+			}
 		}
 	}
 
@@ -318,5 +362,32 @@ namespace BasicSPEncryption {
 		}
 	}
 
+	void ConnectComPort() {
+		cli::array<String^>^ portNames = this->serialPort1->GetPortNames();
+		bool port = false;
+
+		for each (String ^ portName in portNames)
+		{
+			if (portName == "COM3")
+			{
+				port = true;				
+			}
+
+		}
+
+		if (!port) {
+			this->label5->Visible = false;
+		}
+		else {
+			if (this->serialPort1->IsOpen == false) {
+				this->serialPort1->Open();
+				this->label5->Visible = true;
+			}
+		}
+	}
+
+	System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		this->ConnectComPort();
+	}
 };
 }
