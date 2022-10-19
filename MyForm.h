@@ -286,16 +286,17 @@ namespace BasicSPEncryption {
 			Section* section = new Section();
 
 			section->SetInput(stoi(separator->GetNextWord()));
+			unsigned long input = section->GetOutput().to_ulong();
 			section->Encrypt(keyGen, g);
 			unsigned long res = section->GetOutput().to_ulong();
 
 
 			this->label4->Text = gcnew System::String(to_string( res ).c_str());
 
-			cli::array<Byte>^ buffer = gcnew cli::array<Byte> { res >> 8, res };
+			cli::array<Byte>^ buffer = gcnew cli::array<Byte> { input >> 8, input, res >> 8, res };
 			
 			if (this->serialPort1->IsOpen) {
-				this->serialPort1->Write(buffer, 0, 2);
+				this->serialPort1->Write(buffer, 0, 4);
 			}
 		}
 		
@@ -318,15 +319,16 @@ namespace BasicSPEncryption {
 			Section* section = new Section();
 
 			section->SetInput(stoi(separator->GetNextWord()));
+			unsigned long input = section->GetOutput().to_ulong();
 			section->Decrypt(keyGen, g);
 			unsigned long res = section->GetOutput().to_ulong();
 
 			this->label4->Text = gcnew System::String(to_string(res).c_str());
 
-			cli::array<Byte>^ buffer = gcnew cli::array<Byte> { res >> 8, res };
+			cli::array<Byte>^ buffer = gcnew cli::array<Byte> { input >> 8, input, res >> 8, res };
 
 			if (this->serialPort1->IsOpen) {
-				this->serialPort1->Write(buffer, 0, 2);
+				this->serialPort1->Write(buffer, 0, 4);
 			}
 		}
 	}
