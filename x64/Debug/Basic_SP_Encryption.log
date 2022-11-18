@@ -1,19 +1,19 @@
 ﻿  MyForm.cpp
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,62): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,62): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,68): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,68): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,79): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,79): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,85): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(296,85): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,62): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,62): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,68): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,68): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,79): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,79): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,85): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
-D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(328,85): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,62): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,62): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,68): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,68): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,79): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,79): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,85): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(335,85): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,62): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,62): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,68): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,68): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,79): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,79): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,85): warning C4838: Преобразование из "unsigned long" в "unsigned char" требует сужающего преобразования.
+D:\Programmig\C++\Basic_SP_Encryption\MyForm.h(367,85): warning C4244: инициализация: преобразование "unsigned long" в "unsigned char", возможна потеря данных
   Drawer.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Basic_SP_Encryption.vcxproj -> D:\Programmig\C++\Basic_SP_Encryption\x64\Debug\Basic_SP_Encryption.exe

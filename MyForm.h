@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <bitset>
 #include <msclr\marshal_cppstd.h>
+#include <fstream>
 #include "Separator.h"
 #include "KeyGen.h"
 #include "Section.h"
@@ -35,6 +36,7 @@ namespace BasicSPEncryption {
 			
 			this->errorInput->Text = "";
 			this->errorKey->Text = "";
+			this->errorGen->Text = "";
 			this->label4->Text = "";
 			this->label5->Visible = false;
 		}
@@ -65,6 +67,10 @@ namespace BasicSPEncryption {
 	private: System::IO::Ports::SerialPort^ serialPort1;
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Button^ button3;
+
+	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
+	private: System::Windows::Forms::Label^ errorGen;
 	private: System::ComponentModel::IContainer^ components;
 	protected:
 
@@ -97,6 +103,9 @@ namespace BasicSPEncryption {
 			this->serialPort1 = (gcnew System::IO::Ports::SerialPort(this->components));
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->errorGen = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -245,11 +254,41 @@ namespace BasicSPEncryption {
 			this->timer1->Interval = 250;
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
+			// button3
+			// 
+			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button3->Location = System::Drawing::Point(20, 376);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(214, 55);
+			this->button3->TabIndex = 13;
+			this->button3->Text = L"Сгенерировать данные";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			// 
+			// saveFileDialog1
+			// 
+			this->saveFileDialog1->FileName = L"CriptoDate.txt";
+			// 
+			// errorGen
+			// 
+			this->errorGen->AutoSize = true;
+			this->errorGen->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->errorGen->ForeColor = System::Drawing::Color::Red;
+			this->errorGen->Location = System::Drawing::Point(16, 434);
+			this->errorGen->Name = L"errorGen";
+			this->errorGen->Size = System::Drawing::Size(103, 20);
+			this->errorGen->TabIndex = 14;
+			this->errorGen->Text = L"Валидация";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1191, 640);
+			this->Controls->Add(this->errorGen);
+			this->Controls->Add(this->button3);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->label4);
@@ -390,6 +429,71 @@ namespace BasicSPEncryption {
 
 	System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->ConnectComPort();
+	}
+
+	System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) { // Генерация файла
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::Cancel) { return; }
+
+		string filename = msclr::interop::marshal_as<std::string>(saveFileDialog1->FileName);
+
+		ofstream file;
+		file.open(filename, std::ofstream::out | std::ofstream::trunc);
+		file.close();
+
+		S_Block* s_block = new S_Block();
+		P_Block* p_block = new P_Block();
+
+		vector<int> dateWriteFile = s_block->GetSubstitution();
+		WriteVectorFile(dateWriteFile, filename);
+
+		dateWriteFile = p_block->GetPermutation();
+		WriteVectorFile(dateWriteFile, filename);
+
+		ExempleGen(filename);
+	}
+
+	template <class T>
+	void WriteVectorFile(T data, string filename) {
+		ofstream file;
+		file.open(filename, ios_base::out | ios_base::app);
+
+		T::iterator itr;
+
+		for (itr = data.begin(); itr != data.end(); itr++) {
+			file << *itr << " ";
+		}
+
+		file << endl;
+
+		file.close();
+	}
+
+	void ExempleGen(string filename) {
+		
+		for (int i = 0; i < 10000; i++) {
+			uint16_t rand64C = ((uint16_t)rand() << 15) + rand();
+			uint16_t rand64P = ((uint16_t)rand() << 15) + rand();
+
+			separator->SetInput(to_string(rand64C));
+			keyGen->SetKey(to_string(rand64P));
+
+			for (int j = 0; j < separator->GetCountWords(); j++) {
+				Section* section = new Section();
+
+				section->SetInput(stoi(separator->GetNextWord()));
+				unsigned long input = section->GetOutput().to_ulong();
+				section->EncryptNoDisplay(keyGen);
+				unsigned long res = section->GetOutput().to_ulong();
+
+				ofstream file;
+				file.open(filename, ios_base::out | ios_base::app);
+
+				file << input << " " << res << endl;
+
+				file.close();
+			}
+		}
+
 	}
 };
 }

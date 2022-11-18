@@ -112,6 +112,25 @@ void Section::Encrypt(KeyGen* keyGen, Graphics^ g) // Шифрование
 
 }
 
+void Section::EncryptNoDisplay(KeyGen* keyGen)
+{
+	for (int i = 0; i < this->roundCount; i++) {
+		string keyStr = keyGen->Generate(this->round);
+		bitset<16> key(keyStr);
+
+		this->XOR(key);
+		this->Substitution(false);
+
+		if (i != 3) {
+			this->Permutation(false);
+		}
+	}
+
+	string keyStr = keyGen->Generate(this->round);
+	bitset<16> key(keyStr);
+	this->XOR(key);
+}
+
 void Section::XOR(bitset<16> key)
 {
 	this->word->operator^=(key);
