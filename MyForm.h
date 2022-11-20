@@ -6,6 +6,8 @@
 #include <bitset>
 #include <msclr\marshal_cppstd.h>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 #include "Separator.h"
 #include "KeyGen.h"
 #include "Section.h"
@@ -39,6 +41,7 @@ namespace BasicSPEncryption {
 			this->errorGen->Text = "";
 			this->label4->Text = "";
 			this->label5->Visible = false;
+			srand((unsigned int)time(NULL));
 		}
 
 	protected:
