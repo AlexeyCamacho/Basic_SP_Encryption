@@ -449,6 +449,8 @@ namespace BasicSPEncryption {
 		dateWriteFile = p_block->GetPermutation();
 		WriteVectorFile(dateWriteFile, filename);
 
+		dateWriteFile.clear();
+
 		ExempleGen(filename);
 	}
 
@@ -469,13 +471,18 @@ namespace BasicSPEncryption {
 	}
 
 	void ExempleGen(string filename) {
+
+		uint16_t rand64P = ((uint16_t)rand() << 15) + rand();
+		keyGen->SetKey(to_string(rand64P));
+
+		ofstream file;
+		file.open(filename, ios_base::out | ios_base::app);
+		file << rand64P << endl;
 		
 		for (int i = 0; i < 10000; i++) {
 			uint16_t rand64C = ((uint16_t)rand() << 15) + rand();
-			uint16_t rand64P = ((uint16_t)rand() << 15) + rand();
 
 			separator->SetInput(to_string(rand64C));
-			keyGen->SetKey(to_string(rand64P));
 
 			for (int j = 0; j < separator->GetCountWords(); j++) {
 				Section* section = new Section();
@@ -485,14 +492,12 @@ namespace BasicSPEncryption {
 				section->EncryptNoDisplay(keyGen);
 				unsigned long res = section->GetOutput().to_ulong();
 
-				ofstream file;
-				file.open(filename, ios_base::out | ios_base::app);
-
 				file << input << " " << res << endl;
 
-				file.close();
 			}
 		}
+
+		file.close();
 
 	}
 };
